@@ -8,11 +8,9 @@
         height: 100%;
         width: 100%;
 
-        .active {
-            display: block;
+        &.active {
+            display: grid;
         }
-
-        display: grid;
 
         grid-template-areas:
             "left main      right"
@@ -40,6 +38,12 @@
 
                     margin-bottom: 6px;
 
+                    &.active {
+                        button {
+                            @extend .active;
+                        }
+                    }
+
                     button {
                         display: flex;
                         
@@ -66,7 +70,7 @@
 
             position: relative;
 
-            overflow: hidden;
+            overflow: auto;
         }
 
         .right {

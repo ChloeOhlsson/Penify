@@ -27,102 +27,14 @@
             <div class="logo logo-32x32"></div>
 
             <div id="header-workspaces">
-                <ul>
-                    <li class="active">Unnamed workspace <button><i class="fas fa-times"></i></button></li>
-                </ul>
+                <ul id="workspaces-tabs"></ul>
 
                 <button id="header-workspaces-new" class="dark"><i class="fas fa-plus"></i></button>
             </div>
         </header>
 
         <main>
-            <div id="workspaces">
-                <div class="workspace active">
-                    <section class="left">
-                        <ul class="tools">
-                            <li><button class="dark"><i class="fas fa-pencil-alt"></i></button></li>
-                        </ul>
-                    </section>
-
-                    <section class="main">
-                        <div class="canvas">
-                            <div class="canvas-content">
-                                
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="right">
-                        <div class="dialog">
-                            <div class="dialog-header">
-                                <div class="dialog-header-title">Layers</div>
-                            
-                                <div class="dialog-header-buttons">
-                                    <button class="dark"><i class="fas fa-plus"></i></button>
-                                </div>
-                            </div>
-
-                            <div class="dialog-container">
-                                <div class="layer">
-                                    <div class="layer-thumbnail"></div>
-
-                                    <div class="layer-name">Unnamed layer</div>
-
-                                    <div class="layer-buttons">
-                                        <button><i class="fas fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="dialog">
-                            <div class="dialog-header">
-                                <div class="dialog-header-title">History</div>
-                            </div>
-
-                            <div class="dialog-container">
-                                <div class="history">
-                                    <div class="history-icon"><i class="fas fa-pencil-alt"></i></div>
-
-                                    <div class="history-name">Pen</div>
-
-                                    <div class="history-buttons">
-                                        <button><i class="fas fa-history"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="dialog">
-                            <div class="dialog-header">
-                                <div class="dialog-header-title">Properties</div>
-                            </div>
-
-                            <div class="dialog-container">
-                                ???
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="footer">
-                        <div class="footer-information"><i class="fas fa-pencil-alt"></i> Left mouse to pixel with primary color, right mouse for secondary color.</div>
-                    
-                        <div class="footer-properties">
-                            <p><i class="far fa-image"></i> <span class="footer-properties-width">800</span>&#215;<span class="footer-properties-height">600</span></p>
-                        
-                            <p><span class="footer-properties-zoom">100%</span></p>
-
-                            <div>
-                                <button><i class="fas fa-search-minus"></i></button>
-
-                                <input type="range" min="1" max="100" value="50">
-                                
-                                <button><i class="fas fa-search-plus"></i></button>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
+            <div id="workspaces"></div>
         </main>
 
         <script type="text/javascript" src="scripts/app.js"></script>

@@ -1,0 +1,14 @@
+{
+    "scripts": [
+        "Workspaces/Workspaces.js",
+
+        "Workspaces/Workspace/Workspace.js",
+        "Workspaces/Workspace/WorkspaceItem.js",
+        
+        "Workspaces/Workspace/Tools/Tools.js",
+        "Workspaces/Workspace/Tools/Tool/Pen.js",
+        
+        "Workspaces/Workspace/Layers/Layers.js",
+        "Workspaces/Workspace/History/History.js"
+    ]
+}
