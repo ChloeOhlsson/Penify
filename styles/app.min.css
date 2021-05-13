@@ -1,1 +1,1 @@
-html,body{height:100%;width:100%}body{background:#1f2429;color:#cacaca;margin:0}/*# sourceMappingURL=app.min.css.map */
+html,body{height:100%;width:100%}body{background:#1f2429;color:#cacaca;margin:0;display:grid;grid-template-rows:50px auto;grid-template-areas:"header" "main"}header{grid-area:header;border-bottom:1px solid #000}main{grid-area:main}/*# sourceMappingURL=app.min.css.map */

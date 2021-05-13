@@ -1,4 +1,9 @@
 $background: #1F2429;
 $color: #CACACA;
 
+$border-container: 1px solid black;
+$border-content: 1px solid rgba(0, 0, 0, .5);
+
 @import "Document/Document";
+@import "Header/Header";
+@import "Main/Main";
