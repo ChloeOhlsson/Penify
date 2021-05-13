@@ -1,0 +1,52 @@
+.footer {
+    grid-area: footer;
+
+    width: 100%;
+    height: 24px;
+
+    background: rgba(128, 128, 128, .1);
+
+    border-left: $border-content;
+    border-right: $border-content;
+    
+    line-height: 24px;
+
+    display: grid;
+
+    grid-template-areas: "information properties";
+    grid-template-columns: auto max-content;
+
+    padding: 0 6px;
+
+    .footer-information {
+        grid-area: information;
+
+        color: #8A8A8A;
+        
+        font-size: 8pt;
+
+        i {
+            margin-right: 3px;
+        }
+    }
+
+    .footer-properties {
+        grid-area: properties;
+        
+        font-size: 10pt;
+
+        text-align: right;
+
+        display: grid;
+
+        grid-gap: 24px;
+
+        grid-auto-flow: column;
+
+        line-height: 22px;
+
+        p {
+            margin: 0;
+        }
+    }
+}

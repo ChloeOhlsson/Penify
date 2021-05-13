@@ -47,6 +47,8 @@
         grid-area: container;
 
         overflow: overlay;
+
+        padding: 3px;
     }
 
     &:not(:last-child) {
