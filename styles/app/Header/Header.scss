@@ -2,4 +2,52 @@ header {
     grid-area: header;
 
     border-bottom: $border-container;
+
+    display: grid;
+
+    grid-template-columns: 32px auto;
+    grid-template-areas: "logo workspaces";
+
+    padding: 0 12px;
+
+    overflow: hidden;
+
+    .logo {
+        grid-area: logo;
+
+        margin: auto;
+    }
+
+    #header-workspaces {
+        grid-area: workspaces;
+
+        height: 28px;
+
+        margin: auto 0 0 auto;
+
+        ul {
+            display: inline-block;
+
+            li {
+                display: inline-block;
+
+                height: 100%;
+
+                line-height: 28px;
+
+                padding: 0 12px;
+
+                margin-left: 3px;
+
+                button {
+                    margin-left: 3px;
+                }
+            }
+        }
+
+        #header-workspaces-new {
+            width: 20px;
+            height: 20px;
+        }
+    }
 }

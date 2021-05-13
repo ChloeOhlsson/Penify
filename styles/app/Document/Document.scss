@@ -12,8 +12,17 @@ body {
 
     display: grid;
 
+    font-family: "OpenSans Regular";
+    font-size: 10pt;
+
     grid-template-rows: 50px auto;
     grid-template-areas:
         "header"
         "main";
+
+    * {
+        box-sizing: border-box;
+
+        user-select: none;
+    }
 }

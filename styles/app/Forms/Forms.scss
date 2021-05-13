@@ -1,0 +1,52 @@
+button {
+    background: none;
+    border: none;
+
+    color: $color;
+
+    cursor: pointer;
+
+    text-align: center;
+    
+    border-radius: 3px;
+
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:active {
+        cursor: default;
+    }
+
+    &.dark {
+        &:hover {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        &.active {
+            background: rgba(0, 0, 0, .25);
+        }
+    }
+}
+
+ul {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    li {
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+
+        &:hover {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        &.active {
+            background: rgba(0, 0, 0, .25);
+        }
+    }
+}
