@@ -1,0 +1,47 @@
+.layer {
+    height: 76px;
+    width: 100%;
+
+    display: grid;
+
+    grid-template-areas: "thumbnail name buttons";
+    grid-template-columns: 100px auto 40px;
+
+    &:not(:last-child) {
+        border-bottom: 1px dotted rgba(0, 0, 0, .5);
+    }
+
+    .layer-thumbnail {
+        grid-area: thumbnail;
+
+        margin: auto;
+
+        border: $border-content;
+
+        width: 80px;
+        height: 60px;
+
+        @include transparent(10px);
+    }
+
+    .layer-name {
+        margin: auto;
+    }
+
+    .layer-buttons {
+        display: none;
+
+        margin: auto;
+
+        button {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &:hover {
+        .layer-buttons {
+            display: block;
+        }
+    }
+}

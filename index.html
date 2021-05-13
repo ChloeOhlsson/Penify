@@ -28,7 +28,7 @@
 
             <div id="header-workspaces">
                 <ul>
-                    <li>Unnamed workspace <button><i class="fas fa-times"></i></button></li>
+                    <li class="active">Unnamed workspace <button><i class="fas fa-times"></i></button></li>
                 </ul>
 
                 <button id="header-workspaces-new" class="dark"><i class="fas fa-plus"></i></button>
@@ -36,7 +36,71 @@
         </header>
 
         <main>
+            <div id="workspaces">
+                <div class="workspace active">
+                    <section class="left">
+                        <ul class="tools">
+                            <li><button class="dark"><i class="fas fa-pencil-alt"></i></button></li>
+                        </ul>
+                    </section>
 
+                    <section class="main">
+
+                    </section>
+
+                    <section class="right">
+                        <div class="dialog">
+                            <div class="dialog-header">
+                                <div class="dialog-header-title">Layers</div>
+                            
+                                <div class="dialog-header-buttons">
+                                    <button class="dark"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="dialog-container">
+                                <div class="layer">
+                                    <div class="layer-thumbnail"></div>
+
+                                    <div class="layer-name">Unnamed layer</div>
+
+                                    <div class="layer-buttons">
+                                        <button><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dialog">
+                            <div class="dialog-header">
+                                <div class="dialog-header-title">History</div>
+                            </div>
+
+                            <div class="dialog-container">
+                                <div class="history">
+                                    <div class="history-icon"><i class="fas fa-pencil-alt"></i></div>
+
+                                    <div class="history-name">Pen</div>
+
+                                    <div class="history-buttons">
+                                        <button><i class="fas fa-history"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dialog">
+                            <div class="dialog-header">
+                                <div class="dialog-header-title">Properties</div>
+                            </div>
+
+                            <div class="dialog-container">
+                                
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </main>
 
         <script type="text/javascript" src="scripts/app.js"></script>

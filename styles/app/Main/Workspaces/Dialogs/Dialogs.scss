@@ -1,0 +1,55 @@
+.dialog {
+    display: grid;
+
+    grid-template-areas:
+        "header"
+        "container";
+
+    grid-template-rows: 48px auto;
+
+    overflow: hidden;
+
+    .dialog-header {
+        grid-area: header;
+
+        background: rgba(0, 0, 0, .15);
+
+        display: grid;
+
+        font-size: 13pt;
+
+        grid-template-areas: "title buttons";
+        grid-template-columns: auto auto;
+
+        line-height: 48px;
+
+        padding: 0 12px;
+
+        border-bottom: 1px solid rgba(0, 0, 0, .25);
+
+        .dialog-header-title {
+            grid-area: title;
+        }
+
+        .dialog-header-buttons {
+            grid-area: buttons;
+
+            text-align: right;
+
+            button {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    }
+
+    .dialog-container {
+        grid-area: container;
+
+        overflow: overlay;
+    }
+
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba(0, 0, 0, .5);
+    }
+}

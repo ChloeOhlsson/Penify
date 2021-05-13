@@ -1,0 +1,44 @@
+.history {
+    height: 48px;
+    width: 100%;
+
+    display: grid;
+
+    grid-template-areas: "icon name buttons";
+    grid-template-columns: 60px auto 40px;
+
+    &:not(:last-child) {
+        border-bottom: 1px dotted rgba(0, 0, 0, .5);
+    }
+
+    .history-icon {
+        grid-area: icon;
+
+        font-size: 13pt;
+
+        margin: auto;
+    }
+
+    .history-name {
+        margin: auto 0;
+
+        font-size: 12pt;
+    }
+
+    .history-buttons {
+        display: none;
+
+        margin: auto;
+
+        button {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &:hover {
+        .history-buttons {
+            display: block;
+        }
+    }
+}

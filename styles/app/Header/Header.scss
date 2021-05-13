@@ -39,6 +39,10 @@ header {
 
                 margin-left: 3px;
 
+                &:hover, &.active {
+                    background: rgba(0, 0, 0, .2);
+                }
+
                 button {
                     margin-left: 3px;
                 }
