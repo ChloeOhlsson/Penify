@@ -1,17 +1,28 @@
-class Pen extends Tool {
-    name = "Pen";
-    icon = "fas fa-pencil-alt";
+class Brush extends Tool {
+    name = "Brush";
+    icon = "fas fa-paint-brush";
 
-    hideCursor = true;
+    hideCursor = false;
 
     constructor(workspace) {
         super(workspace);
 
-        this.cursor.innerHTML = `<i class="${this.icon}"></i>`;
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = 20 + 4;
+
+        const context = canvas.getContext("2d");
+        context.strokeStyle = "#CACACA";
+        context.arc(20 / 2 + 2, 20 / 2 + 2, 20 / 2, 0, 2 * Math.PI);
+        context.stroke();
+
+        this.cursor.appendChild(canvas);
     };
 
     select() {
         super.select();
+        
+        this.context.lineWidth = 20;
+        this.context.lineJoin = this.context.lineCap = "round";
     };
 
     mouseEnter(event, left, top) {

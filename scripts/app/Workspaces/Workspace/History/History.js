@@ -23,6 +23,9 @@ class History extends WorkspaceItem {
 
     add(tool = this.workspace.tools.active) {
         const layer = this.workspace.layers.active;
+
+        if(layer == undefined)
+            return;
         
         const element = document.createElement("div");
         element.classList.add("history");
@@ -42,12 +45,12 @@ class History extends WorkspaceItem {
         };
 
         element.querySelector(".history-revert").addEventListener("click", (event) => {
-            for(let index = 0, elements = layer.history.getElementsByClassName("active"); index < elements.length; index++)
-                elements[index].classList.remove("active");
+            for(let index = 0; index < layer.histories.length; index++)
+                layer.histories[index].element.classList.remove("active");
 
             const historyIndex = layer.histories.indexOf(history);
 
-            for(let index = historyIndex; index < layer.histories.length; index++)
+            for(let index = layer.histories.length - 1; index >= historyIndex; index--)
                 layer.histories[index].element.classList.add("active");
 
             this.add({

@@ -7,6 +7,7 @@
         
         "Workspaces/Workspace/Tools/Tools.js",
         "Workspaces/Workspace/Tools/Tool/Pen.js",
+        "Workspaces/Workspace/Tools/Tool/Brush.js",
         
         "Workspaces/Workspace/Layers/Layers.js",
         "Workspaces/Workspace/Layers/Layer/Layer.js",

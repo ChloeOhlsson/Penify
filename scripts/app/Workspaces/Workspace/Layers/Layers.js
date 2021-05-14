@@ -98,6 +98,12 @@ class Layers extends WorkspaceItem {
             element.remove();
             
             layer.element.remove();
+            layer.canvas.remove();
+            layer.history.remove();
+
+            if(this.active == layer)
+                delete this.active;
+
         });
 
         this.element.appendChild(element);

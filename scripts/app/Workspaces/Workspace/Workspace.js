@@ -59,7 +59,9 @@ class Workspace {
         this.left = this.element.querySelector(".left");
 
         this.tools = new Tools(this);
+        
         this.tools.add(new Pen(this));
+        this.tools.add(new Brush(this));
 
         this.right = this.element.querySelector(".right");
 
