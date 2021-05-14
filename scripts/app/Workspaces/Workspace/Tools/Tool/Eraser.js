@@ -28,8 +28,6 @@ class Eraser extends Tool {
 
     select(element) {
         super.select(element);
-
-        this.context = this.workspace.layers.active.context;
     };
 
     mouseEnter(event, left, top) {
@@ -66,8 +64,6 @@ class Eraser extends Tool {
         this.path.lineTo(left + .5, top - .5);
 
         this.render();
-
-        this.workspace.layers.active?.render();
     };
 
     mouseLeave(event, left, top) {
@@ -77,15 +73,19 @@ class Eraser extends Tool {
     render() {
         this.workspace.layers.active.restore();
 
-        this.context.save();
+        const context = this.workspace.layers.active.context;
+
+        context.save();
             
-        this.context.lineWidth = this.size;
-        this.context.lineJoin = this.context.lineCap = "round";
-        this.context.globalCompositeOperation = this.mode;
+        context.lineWidth = this.size;
+        context.lineJoin = context.lineCap = "round";
+        context.globalCompositeOperation = this.mode;
 
-        this.context.stroke(this.path);
+        context.stroke(this.path);
 
-        this.context.restore();
+        this.workspace.layers.active.render();
+
+        context.restore();
     };
 
     unselect() {

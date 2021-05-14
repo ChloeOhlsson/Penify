@@ -28,8 +28,6 @@ class Brush extends Tool {
 
     select(element) {
         super.select(element);
-
-        this.context = this.workspace.layers.active.context;
     };
 
     mouseEnter(event, left, top) {
@@ -66,8 +64,6 @@ class Brush extends Tool {
         this.path.lineTo(left + .5, top - .5);
 
         this.render();
-
-        this.workspace.layers.active?.render();
     };
 
     mouseLeave(event, left, top) {
@@ -77,15 +73,19 @@ class Brush extends Tool {
     render() {
         this.workspace.layers.active.restore();
 
-        this.context.save();
-            
-        this.context.lineWidth = this.size;
-        this.context.lineJoin = this.context.lineCap = "round";
-        this.context.globalCompositeOperation = this.mode;
+        const context = this.workspace.layers.active.context;
 
-        this.context.stroke(this.path);
+        context.save();
+                
+        context.lineWidth = this.size;
+        context.lineJoin =context.lineCap = "round";
+        context.globalCompositeOperation = this.mode;
 
-        this.context.restore();
+        context.stroke(this.path);
+
+        this.workspace.layers.active.render();
+
+        context.restore();
     };
 
     unselect() {
