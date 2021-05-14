@@ -61,13 +61,9 @@ class Layers extends WorkspaceItem {
     focus(layer) {
         this.active?.element.classList.remove("active");
 
-        if(this.active != layer) {
-            this.active = layer;
+        this.active = layer;
 
-            this.active.element.classList.add("active");
-        }
-        else
-            delete this.active;
+        this.active.element.classList.add("active");
     };
 
     remove(layer) {
