@@ -13,20 +13,62 @@ class History extends WorkspaceItem {
                 </div>
             </div>
 
-            <div class="dialog-container">
-                <div class="history">
-                    <div class="history-icon"><i class="fas fa-pencil-alt"></i></div>
+            <div class="dialog-container"></div>
+        `;
 
-                    <div class="history-name">Pen</div>
+        this.container = this.element.querySelector(".dialog-container");
+        
+        this.workspace.right.appendChild(this.element);
+    };
 
-                    <div class="history-buttons">
-                        <button><i class="fas fa-history"></i></button>
-                    </div>
-                </div>
-                </div>
+    add(tool = this.workspace.tools.active) {
+        const layer = this.workspace.layers.active;
+        
+        const element = document.createElement("div");
+        element.classList.add("history");
+        element.innerHTML = `
+            <div class="history-icon"><i class="${tool.icon}"></i></div>
+
+            <div class="history-name">${tool.name}</div>
+
+            <div class="history-buttons">
+                <button class="history-revert"><i class="fas fa-history"></i></button>
             </div>
         `;
         
-        this.workspace.right.appendChild(this.element);
+        const history = {
+            element,
+            canvas: layer.canvas.toDataURL()
+        };
+
+        element.querySelector(".history-revert").addEventListener("click", (event) => {
+            for(let index = 0, elements = layer.history.getElementsByClassName("active"); index < elements.length; index++)
+                elements[index].classList.remove("active");
+
+            const historyIndex = layer.histories.indexOf(history);
+
+            for(let index = historyIndex; index < layer.histories.length; index++)
+                layer.histories[index].element.classList.add("active");
+
+            this.add({
+                icon: "fas fa-history",
+                name: "Revert"
+            });
+
+            layer.context.clearRect(0, 0, layer.canvas.width, layer.canvas.height);
+
+            const image = new Image();
+
+            image.onload = (event) => {
+                layer.context.drawImage(image, 0, 0);
+            };
+
+            image.src = history.canvas;
+        });
+
+        layer.histories.push(history);
+        layer.history.appendChild(element);
+
+        this.container.scrollTop = this.container.scrollHeight;
     };
 };

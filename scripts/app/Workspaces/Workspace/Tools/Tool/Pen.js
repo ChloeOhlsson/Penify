@@ -18,12 +18,48 @@ class Pen extends Tool {
         super.mouseEnter(event, left, top);
     };
 
-    mouseMove(event, left, top) {
-        super.mouseMove(event, left, top);
+    mouseDown(event, left, top) {
+        super.mouseDown(event, left, top);
+        
+        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+
+        this.context.beginPath();
+
+        this.context.moveTo(left, top);
+        this.context.lineTo(left, top);
+
+        this.context.stroke();
     };
 
-    mouseLeave(event) {
-        super.mouseLeave(event);
+    mouseMove(event, left, top, down) {
+        super.mouseMove(event, left, top, down);
+
+        if(down) {
+            this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+
+            this.context.lineTo(left, top);
+
+            this.context.stroke();
+        }
+    };
+
+    mouseUp(event, left, top) {
+        super.mouseUp(event, left, top);
+
+        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+
+        this.context.lineTo(left, top);
+        this.context.stroke();
+
+        this.workspace.history.add();
+        
+        this.workspace.layers.active.context.drawImage(this.context.canvas, 0, 0);
+
+        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+    };
+
+    mouseLeave(event, left, top) {
+        super.mouseLeave(event, left, top);
     };
 
     unselect() {

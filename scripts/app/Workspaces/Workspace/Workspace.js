@@ -64,11 +64,12 @@ class Workspace {
         this.right = this.element.querySelector(".right");
 
         this.layers = new Layers(this);
-        this.layers.create();
 
         this.history = new History(this);
 
         this.zoomConstructor();
+        
+        this.layers.create();
 
         this.setName(name);
         this.setSize(width, height);
@@ -81,7 +82,7 @@ class Workspace {
         const target = { x: 0, y: 0 };
         const pointer = { x: 0, y: 0 };
         
-        let scale = 1;
+        this.scale = 1;
 
         this.element.addEventListener("wheel", (event) => {
             if(!event.ctrlKey)
@@ -91,17 +92,17 @@ class Workspace {
             
             pointer.x = event.pageX - this.canvas.offsetLeft;
             pointer.y = event.pageY - this.canvas.offsetTop;
-            target.x = (pointer.x - position.x) / scale;
-            target.y = (pointer.y - position.y) / scale;
+            target.x = (pointer.x - position.x) / this.scale;
+            target.y = (pointer.y - position.y) / this.scale;
             
-            scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * speed * scale;
-            scale = Math.max(.1, Math.min(8, scale));
+            this.scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * speed * this.scale;
+            this.scale = Math.max(.1, Math.min(8, this.scale));
 
-            position.x = -target.x * scale + pointer.x;
-            position.y = -target.y * scale + pointer.y;
+            position.x = -target.x * this.scale + pointer.x;
+            position.y = -target.y * this.scale + pointer.y;
 
             this.content.style.margin = `${position.y}px 0 0 ${position.x}px`;
-            this.content.style.transform = `scale(${scale})`;
+            this.content.style.transform = `scale(${this.scale})`;
         }, { passive: false });
     };
 

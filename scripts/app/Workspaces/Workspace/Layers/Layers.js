@@ -59,10 +59,12 @@ class Layers extends WorkspaceItem {
     };  
 
     focus(layer) {
+        this.active?.history.remove();
         this.active?.element.classList.remove("active");
 
         this.active = layer;
 
+        this.workspace.history.container.appendChild(this.active.history);
         this.active.element.classList.add("active");
     };
 

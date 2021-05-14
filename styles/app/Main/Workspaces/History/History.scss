@@ -1,14 +1,22 @@
 .history {
-    height: 48px;
+    height: 42px;
     width: 100%;
 
     display: grid;
 
     grid-template-areas: "icon name buttons";
-    grid-template-columns: 60px auto 40px;
+    grid-template-columns: 50px auto 40px;
+
+    box-sizing: content-box;
 
     &:not(:last-child) {
         border-bottom: 1px dotted rgba(0, 0, 0, .5);
+    }
+
+    &.active {
+        background: rgba(0, 0, 0, .25);
+        
+        opacity: .5;
     }
 
     .history-icon {
