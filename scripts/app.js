@@ -1,4 +1,6 @@
 class App {
+    static title = document.title;
+
     static resolveScript(resolve) {
         App.configuration.scripts.shift();
 

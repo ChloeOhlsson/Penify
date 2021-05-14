@@ -23,9 +23,17 @@ class Workspaces {
 
         this.active.tab.classList.add("active");
         this.active.element.classList.add("active");
+
+        document.title = `Penify - ${this.active.name}`;
     };
 
     static remove(workspace) {
+        if(workspace == this.active) {
+            document.title = App.title;
+
+            delete this.active;
+        }
+
         workspace.tab.remove();
         workspace.element.remove();
     };

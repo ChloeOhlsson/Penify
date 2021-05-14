@@ -9,6 +9,8 @@
         "Workspaces/Workspace/Tools/Tool/Pen.js",
         
         "Workspaces/Workspace/Layers/Layers.js",
+        "Workspaces/Workspace/Layers/Layer/Layer.js",
+
         "Workspaces/Workspace/History/History.js"
     ]
 }

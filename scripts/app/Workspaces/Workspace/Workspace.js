@@ -1,7 +1,9 @@
 class Workspace {
+    name = "Unnamed workspace";
+
     constructor() {
         this.tab = document.createElement("li");
-        this.tab.innerHTML = `Unnamed workspace <button class="workspace-remove"><i class="fas fa-times"></i></button>`;
+        this.tab.innerHTML = `${this.name} <button class="workspace-remove"><i class="fas fa-times"></i></button>`;
         this.tab.addEventListener("click", (event) => {
             if(event.target != this.tab)
                 return;
@@ -55,6 +57,8 @@ class Workspace {
         this.right = this.element.querySelector(".right");
 
         this.layers = new Layers(this);
+        this.layers.add(new Layer(this));
+
         this.history = new History(this);
     };
 };

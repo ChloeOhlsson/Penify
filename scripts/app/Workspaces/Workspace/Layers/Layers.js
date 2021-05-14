@@ -13,19 +13,27 @@ class Layers extends WorkspaceItem {
                 </div>
             </div>
 
-            <div class="dialog-container">
-                <div class="layer">
-                    <div class="layer-thumbnail"></div>
+            <div class="dialog-container"></div>
+        `;
 
-                    <div class="layer-name">Unnamed layer</div>
+        this.container = this.element.querySelector(".dialog-container");
+        
+        this.workspace.right.appendChild(this.element);
+    };
 
-                    <div class="layer-buttons">
-                        <button><i class="fas fa-times"></i></button>
-                    </div>
-                </div>
+    add(layer) {
+        layer.element = document.createElement("div");
+        layer.element.classList.add("layer");
+        layer.element.innerHTML = `
+            <div class="layer-thumbnail"></div>
+
+            <div class="layer-name">${layer.name}</div>
+
+            <div class="layer-buttons">
+                <button><i class="fas fa-times"></i></button>
             </div>
         `;
         
-        this.workspace.right.appendChild(this.element);
+        this.container.appendChild(layer.element);
     };
 };
