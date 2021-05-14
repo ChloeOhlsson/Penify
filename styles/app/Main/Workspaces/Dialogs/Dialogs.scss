@@ -9,6 +9,8 @@
 
     overflow: hidden;
 
+    position: relative;
+
     .dialog-header {
         grid-area: header;
 
@@ -49,6 +51,34 @@
         overflow: overlay;
 
         padding: 3px;
+    }
+
+    .dialog-overlay {
+        position: absolute;
+
+        left: 0;
+        top: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background: rgba(0, 0, 0, .25);
+
+        display: flex;
+
+        .dialog-overlay-content {
+            margin: auto 12px 12px;
+
+            .dialog-overlay-buttons {
+                display: grid;
+
+                margin-top: 6px;
+
+                grid-template-columns: auto auto;
+
+                grid-gap: 6px;
+            }
+        }
     }
 
     &:not(:last-child) {

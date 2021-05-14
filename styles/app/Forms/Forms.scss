@@ -18,10 +18,6 @@ button {
         outline: none;
     }
 
-    &:active {
-        cursor: default;
-    }
-
     &.dark {
         &:hover {
             background: rgba(0, 0, 0, .2);
@@ -29,6 +25,34 @@ button {
 
         &.active {
             background: rgba(0, 0, 0, .25);
+        }
+    }
+
+    &.fill {
+        padding: 6px 0;
+
+        background: lighten($background, 5%);
+
+        &:hover {
+            background: lighten($background, 10%);
+        }
+
+        &:active {
+            background: $background;
+        }
+    }
+
+    &.fill-transparent {
+        padding: 6px 0;
+
+        background: rgba(0, 0, 0, .1);
+
+        &:hover {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        &:active {
+            background: rgba(0, 0, 0, .1);
         }
     }
 }
