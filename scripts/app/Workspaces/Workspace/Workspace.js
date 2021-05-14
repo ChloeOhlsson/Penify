@@ -52,6 +52,10 @@ class Workspace {
             </section>
         `;
 
+        this.main = this.element.querySelector(".main");
+        this.canvas = this.element.querySelector(".canvas");
+        this.content = this.canvas.querySelector(".canvas-content");
+
         this.left = this.element.querySelector(".left");
 
         this.tools = new Tools(this);
@@ -64,37 +68,40 @@ class Workspace {
 
         this.history = new History(this);
 
+        this.zoomConstructor();
+
         this.setName(name);
         this.setSize(width, height);
+    };
 
-        this.canvas = this.element.querySelector(".canvas");
-        this.canvasContent = this.canvas.querySelector(".canvas-content");
-        this.speed = 0.1;
+    zoomConstructor() {
+        const speed = 0.1;
         
-        this.position = { x: 0, y: 0 };
-        this.target = { x: 0, y: 0 };
-        this.pointer = { x: 0, y: 0 };
-        this.scale = 1;
+        const position = { x: 0, y: 0 };
+        const target = { x: 0, y: 0 };
+        const pointer = { x: 0, y: 0 };
+        
+        let scale = 1;
 
-        window.addEventListener("wheel", (event) => {
+        this.element.addEventListener("wheel", (event) => {
             if(!event.ctrlKey)
                 return;
                 
             event.preventDefault();
             
-            this.pointer.x = event.pageX - this.canvas.offsetLeft;
-            this.pointer.y = event.pageY - this.canvas.offsetTop;
-            this.target.x = (this.pointer.x - this.position.x) / this.scale;
-            this.target.y = (this.pointer.y - this.position.y) / this.scale;
+            pointer.x = event.pageX - this.canvas.offsetLeft;
+            pointer.y = event.pageY - this.canvas.offsetTop;
+            target.x = (pointer.x - position.x) / scale;
+            target.y = (pointer.y - position.y) / scale;
             
-            this.scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * this.speed * this.scale;
-            this.scale = Math.max(.1, Math.min(8, this.scale));
+            scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * speed * scale;
+            scale = Math.max(.1, Math.min(8, scale));
 
-            this.position.x = -this.target.x * this.scale + this.pointer.x;
-            this.position.y = -this.target.y * this.scale + this.pointer.y;
+            position.x = -target.x * scale + pointer.x;
+            position.y = -target.y * scale + pointer.y;
 
-            this.canvasContent.style.margin = `${this.position.y}px 0 0 ${this.position.x}px`;
-            this.canvasContent.style.transform = `scale(${this.scale})`;
+            this.content.style.margin = `${position.y}px 0 0 ${position.x}px`;
+            this.content.style.transform = `scale(${scale})`;
         }, { passive: false });
     };
 

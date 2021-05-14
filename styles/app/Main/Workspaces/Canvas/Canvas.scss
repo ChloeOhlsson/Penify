@@ -1,3 +1,17 @@
+.canvas-cursor {
+    display: none;
+
+    position: absolute;
+
+    pointer-events: none;
+
+    i {
+        position: absolute;
+
+        bottom: 100%;
+    }
+}
+
 .canvas {
     width: var(--width);
     height: var(--height);
