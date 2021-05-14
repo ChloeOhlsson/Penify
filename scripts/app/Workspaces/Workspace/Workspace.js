@@ -111,8 +111,8 @@ class Workspace {
                 
             event.preventDefault();
             
-            pointer.x = event.pageX - this.canvas.offsetLeft;
-            pointer.y = event.pageY - this.canvas.offsetTop;
+            pointer.x = event.pageX - this.container.offsetLeft;
+            pointer.y = event.pageY - this.container.offsetTop;
             target.x = (pointer.x - position.x) / this.scale;
             target.y = (pointer.y - position.y) / this.scale;
             
