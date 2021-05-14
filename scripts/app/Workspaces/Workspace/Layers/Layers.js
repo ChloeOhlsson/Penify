@@ -28,7 +28,7 @@ class Layers extends WorkspaceItem {
         layer.element = document.createElement("div");
         layer.element.classList.add("layer");
         layer.element.innerHTML = `
-            <div class="layer-thumbnail"></div>
+            <canvas class="layer-thumbnail" width="${this.workspace.width}" height="${this.workspace.height}"></canvas>
 
             <div class="layer-name">${layer.name}</div>
 

@@ -54,6 +54,7 @@ class Pen extends Tool {
         this.workspace.history.add();
 
         this.workspace.layers.active.context.drawImage(this.context.canvas, 0, 0);
+        this.workspace.layers.active.render();
 
         this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
     };
