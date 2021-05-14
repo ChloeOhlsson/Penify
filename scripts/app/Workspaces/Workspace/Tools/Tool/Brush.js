@@ -2,7 +2,7 @@ class Brush extends Tool {
     name = "Brush";
     icon = "fas fa-paint-brush";
 
-    hideCursor = false;
+    hideCursor = true;
 
     constructor(workspace) {
         super(workspace);

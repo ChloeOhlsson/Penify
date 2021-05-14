@@ -1,19 +1,27 @@
-class Pen extends Tool {
-    name = "Pen";
-    icon = "fas fa-pencil-alt";
+class Eraser extends Tool {
+    name = "Eraser";
+    icon = "fas fa-eraser";
 
     hideCursor = true;
 
     constructor(workspace) {
         super(workspace);
 
-        this.cursor.innerHTML = `<i class="${this.icon}"></i>`;
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = 20 + 4;
+
+        const context = canvas.getContext("2d");
+        context.strokeStyle = "#CACACA";
+        context.arc(20 / 2 + 2, 20 / 2 + 2, 20 / 2, 0, 2 * Math.PI);
+        context.stroke();
+
+        this.cursor.appendChild(canvas);
     };
 
     select() {
         super.select();
 
-        this.context.restore();
+        this.context = this.workspace.layers.active.context;
     };
 
     mouseEnter(event, left, top) {
@@ -22,9 +30,17 @@ class Pen extends Tool {
 
     mouseDown(event, left, top) {
         super.mouseDown(event, left, top);
-        
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 
+        this.workspace.history.add();
+
+        this.workspace.layers.active.save();
+
+        this.context.save();
+        
+        this.context.lineWidth = 20;
+        this.context.lineJoin = this.context.lineCap = "round";
+        this.context.globalCompositeOperation = "destination-out";
+        
         this.context.beginPath();
 
         this.context.moveTo(left + .5, top);
@@ -37,8 +53,6 @@ class Pen extends Tool {
         super.mouseMove(event, left, top, down);
 
         if(down) {
-            this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
-
             this.context.lineTo(left + .5, top - .5);
 
             this.context.stroke();
@@ -48,17 +62,12 @@ class Pen extends Tool {
     mouseUp(event, left, top) {
         super.mouseUp(event, left, top);
 
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
-
         this.context.lineTo(left + .5, top - .5);
         this.context.stroke();
 
-        this.workspace.history.add();
+        this.context.restore();
 
-        this.workspace.layers.active?.context.drawImage(this.context.canvas, 0, 0);
         this.workspace.layers.active?.render();
-
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
     };
 
     mouseLeave(event, left, top) {

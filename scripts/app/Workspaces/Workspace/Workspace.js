@@ -62,6 +62,7 @@ class Workspace {
         
         this.tools.add(new Pen(this));
         this.tools.add(new Brush(this));
+        this.tools.add(new Eraser(this));
 
         this.right = this.element.querySelector(".right");
 

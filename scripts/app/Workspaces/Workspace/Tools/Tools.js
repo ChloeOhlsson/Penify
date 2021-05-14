@@ -19,10 +19,12 @@ class Tool {
         
         this.context = this.workspace.tools.canvas.getContext("2d");
 
-        this.context.restore();
+        this.context.save();
     };
 
     unselect() {
+        this.context.restore();
+
         this.workspace.main.style.cursor = "unset";
 
         this.cursor.remove();

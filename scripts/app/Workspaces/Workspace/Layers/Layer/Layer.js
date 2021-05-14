@@ -24,4 +24,19 @@ class Layer {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(this.canvas, 0, 0);
     };
+
+    saved = document.createElement("canvas");
+
+    save() {
+        this.saved.width = this.canvas.width;
+        this.saved.height = this.canvas.height;
+
+        const context = this.saved.getContext("2d");
+        context.drawImage(this.canvas, 0, 0);
+    };
+
+    restore() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.drawImage(this.saved, 0, 0);
+    };
 };
