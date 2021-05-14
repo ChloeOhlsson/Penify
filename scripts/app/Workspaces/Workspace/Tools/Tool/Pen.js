@@ -25,8 +25,8 @@ class Pen extends Tool {
 
         this.context.beginPath();
 
-        this.context.moveTo(left, top);
-        this.context.lineTo(left, top);
+        this.context.moveTo(left + .5, top - .5);
+        this.context.lineTo(left + .5, top - .5);
 
         this.context.stroke();
     };
@@ -37,7 +37,7 @@ class Pen extends Tool {
         if(down) {
             this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 
-            this.context.lineTo(left, top);
+            this.context.lineTo(left + .5, top - .5);
 
             this.context.stroke();
         }
@@ -48,11 +48,11 @@ class Pen extends Tool {
 
         this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 
-        this.context.lineTo(left, top);
+        this.context.lineTo(left + .5, top - .5);
         this.context.stroke();
 
         this.workspace.history.add();
-        
+
         this.workspace.layers.active.context.drawImage(this.context.canvas, 0, 0);
 
         this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
