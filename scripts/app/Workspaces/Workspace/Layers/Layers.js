@@ -9,12 +9,15 @@ class Layers extends WorkspaceItem {
                 <div class="dialog-header-title">Layers</div>
             
                 <div class="dialog-header-buttons">
-                    <button class="dark"><i class="fas fa-plus"></i></button>
+                    <button class="dark add"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
 
             <div class="dialog-container"></div>
         `;
+        this.element.querySelector(".add").addEventListener("click", (event) => {
+            this.create();
+        });
 
         this.container = this.element.querySelector(".dialog-container");
         
@@ -34,11 +37,37 @@ class Layers extends WorkspaceItem {
             </div>
         `;
 
+        layer.element.addEventListener("click", (event) => {
+            if(event.target != layer.element)
+                return;
+
+            this.focus(layer);
+        });
+
         layer.element.querySelector(".layer-remove").addEventListener("click", (event) => {
             this.remove(layer);
         });
         
         this.container.appendChild(layer.element);
+    };
+
+    create() {
+        const layer = new Layer(this.workspace);
+
+        this.add(layer);
+        this.focus(layer);
+    };  
+
+    focus(layer) {
+        this.active?.element.classList.remove("active");
+
+        if(this.active != layer) {
+            this.active = layer;
+
+            this.active.element.classList.add("active");
+        }
+        else
+            delete this.active;
     };
 
     remove(layer) {
@@ -51,7 +80,7 @@ class Layers extends WorkspaceItem {
                 <div class="dialog-overlay-buttons">
                     <button class="fill remove">Remove</button>
 
-                    <button class="fill-transparent cancel">Cancel</button>
+                    <button class="fill-dark cancel">Cancel</button>
                 </div>
             </div>
         `;

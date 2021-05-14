@@ -7,6 +7,10 @@
     grid-template-areas: "thumbnail name buttons";
     grid-template-columns: 100px auto 40px;
 
+    &.active {
+        background: rgba(0, 0, 0, .1);
+    }
+
     &:not(:last-child) {
         border-bottom: 1px dotted rgba(0, 0, 0, .5);
     }
@@ -22,10 +26,14 @@
         height: 60px;
 
         @include transparent(10px);
+
+        pointer-events: none;
     }
 
     .layer-name {
         margin: auto;
+
+        pointer-events: none;
     }
 
     .layer-buttons {

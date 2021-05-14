@@ -57,7 +57,7 @@ class Workspace {
         this.right = this.element.querySelector(".right");
 
         this.layers = new Layers(this);
-        this.layers.add(new Layer(this));
+        this.layers.create();
 
         this.history = new History(this);
     };

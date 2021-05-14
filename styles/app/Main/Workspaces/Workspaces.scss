@@ -74,9 +74,11 @@
         }
 
         .right {
-            grid-area: right;
-            
             display: grid;
+            grid-area: right;
+            grid-auto-rows: 1fr;
+        
+            overflow: hidden
         }
 
         @import "Dialogs/Dialogs";

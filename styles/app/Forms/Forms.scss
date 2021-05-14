@@ -42,17 +42,17 @@ button {
         }
     }
 
-    &.fill-transparent {
+    &.fill-dark {
         padding: 6px 0;
 
-        background: rgba(0, 0, 0, .1);
+        background: darken($background, 5%);
 
         &:hover {
-            background: rgba(0, 0, 0, .2);
+            background: darken($background, 10%);
         }
 
         &:active {
-            background: rgba(0, 0, 0, .1);
+            background: darken($background, 5%);
         }
     }
 }
