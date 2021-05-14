@@ -25,9 +25,23 @@ class Workspace {
 
             <section class="main">
                 <div class="canvas">
-                    <div class="canvas-content">
-                        
+                    <div class="canvas-container">
+                        <div class="canvas-content">
+                            
+                        </div>
                     </div>
+                </div>
+                
+                <div class="dialog tool">
+                    <div class="dialog-header">
+                        <div class="dialog-header-title">Tool</div>
+
+                        <div class="dialog-header-buttons">
+                            <button class="dark tool-hide"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="dialog-container"></div>
                 </div>
             </section>
 
@@ -53,8 +67,12 @@ class Workspace {
         `;
 
         this.main = this.element.querySelector(".main");
+
+        this.tool = this.main.querySelector(".tool");
+
         this.canvas = this.element.querySelector(".canvas");
-        this.content = this.canvas.querySelector(".canvas-content");
+        this.container = this.canvas.querySelector(".canvas-container");
+        this.content = this.container.querySelector(".canvas-content");
 
         this.left = this.element.querySelector(".left");
 

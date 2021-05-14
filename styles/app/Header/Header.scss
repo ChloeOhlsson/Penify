@@ -44,6 +44,10 @@ header {
 
                 margin-left: 3px;
 
+                span {
+                    pointer-events: none;
+                }
+
                 &:hover, &.active {
                     background: rgba(0, 0, 0, .2);
                 }

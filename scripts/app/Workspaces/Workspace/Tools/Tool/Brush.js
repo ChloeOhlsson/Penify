@@ -4,25 +4,32 @@ class Brush extends Tool {
 
     hideCursor = true;
 
+    properties = { "preview": "preview", "size": "size", "mode": "blend" };
+
+    size = 20;
+    mode = "source-over";
+
     constructor(workspace) {
         super(workspace);
 
-        const canvas = document.createElement("canvas");
-        canvas.width = canvas.height = 20 + 4;
-
-        const context = canvas.getContext("2d");
-        context.strokeStyle = "#CACACA";
-        context.arc(20 / 2 + 2, 20 / 2 + 2, 20 / 2, 0, 2 * Math.PI);
-        context.stroke();
-
-        this.cursor.appendChild(canvas);
+        this.cursorCanvas = document.createElement("canvas");
+        this.cursor.appendChild(this.cursorCanvas);
     };
 
-    select() {
-        super.select();
-        
-        this.context.lineWidth = 20;
-        this.context.lineJoin = this.context.lineCap = "round";
+    change(key, value) {
+        super.change(key, value);
+
+        this.cursorCanvas.width = this.cursorCanvas.height = this.size + 4;
+        this.cursorContext = this.cursorCanvas.getContext("2d");
+        this.cursorContext.strokeStyle = "#CACACA";
+        this.cursorContext.arc(this.size / 2 + 2, this.size / 2 + 2, this.size / 2, 0, 2 * Math.PI);
+        this.cursorContext.stroke();
+    };
+
+    select(element) {
+        super.select(element);
+
+        this.context = this.workspace.layers.active.context;
     };
 
     mouseEnter(event, left, top) {
@@ -31,47 +38,54 @@ class Brush extends Tool {
 
     mouseDown(event, left, top) {
         super.mouseDown(event, left, top);
+
+        this.workspace.history.add();
+        this.workspace.layers.active.save();
         
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.path = new Path2D();
 
-        this.context.beginPath();
+        this.path.moveTo(left + .5, top);
+        this.path.lineTo(left + .5, top - .5);
 
-        this.context.moveTo(left + .5, top);
-        this.context.lineTo(left + .5, top - .5);
-
-        this.context.stroke();
+        this.render();
     };
 
     mouseMove(event, left, top, down) {
         super.mouseMove(event, left, top, down);
 
         if(down) {
-            this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+            this.path.lineTo(left + .5, top - .5);
 
-            this.context.lineTo(left + .5, top - .5);
-
-            this.context.stroke();
+            this.render();
         }
     };
 
     mouseUp(event, left, top) {
         super.mouseUp(event, left, top);
 
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.path.lineTo(left + .5, top - .5);
 
-        this.context.lineTo(left + .5, top - .5);
-        this.context.stroke();
+        this.render();
 
-        this.workspace.history.add();
-
-        this.workspace.layers.active?.context.drawImage(this.context.canvas, 0, 0);
         this.workspace.layers.active?.render();
-
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
     };
 
     mouseLeave(event, left, top) {
         super.mouseLeave(event, left, top);
+    };
+
+    render() {
+        this.workspace.layers.active.restore();
+
+        this.context.save();
+            
+        this.context.lineWidth = this.size;
+        this.context.lineJoin = this.context.lineCap = "round";
+        this.context.globalCompositeOperation = this.mode;
+
+        this.context.stroke(this.path);
+
+        this.context.restore();
     };
 
     unselect() {

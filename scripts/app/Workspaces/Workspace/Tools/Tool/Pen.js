@@ -4,14 +4,19 @@ class Pen extends Tool {
 
     hideCursor = true;
 
+    properties = { "preview": "preview", "size": "size", "blend": "blend" };
+
+    size = 1;
+    blend = "source-over";
+
     constructor(workspace) {
         super(workspace);
 
         this.cursor.innerHTML = `<i class="${this.icon}"></i>`;
     };
 
-    select() {
-        super.select();
+    select(element) {
+        super.select(element);
 
         this.context.restore();
     };
@@ -22,6 +27,8 @@ class Pen extends Tool {
 
     mouseDown(event, left, top) {
         super.mouseDown(event, left, top);
+
+        this.workspace.history.add();
         
         this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 
@@ -52,8 +59,6 @@ class Pen extends Tool {
 
         this.context.lineTo(left + .5, top - .5);
         this.context.stroke();
-
-        this.workspace.history.add();
 
         this.workspace.layers.active?.context.drawImage(this.context.canvas, 0, 0);
         this.workspace.layers.active?.render();

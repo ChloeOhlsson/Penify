@@ -48,6 +48,14 @@ App.addStep(async function(resolve) {
 
 App.addStep(App.loadScript);
 
+App.addStep((resolve) => {
+    App.logo = new Image();
+
+    App.logo.onload = resolve;
+
+    App.logo.src = "images/logo-white.png";
+});
+
 App.start(function() {
     
 });

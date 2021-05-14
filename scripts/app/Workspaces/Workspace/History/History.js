@@ -7,10 +7,6 @@ class History extends WorkspaceItem {
         this.element.innerHTML = `
             <div class="dialog-header">
                 <div class="dialog-header-title">History</div>
-            
-                <div class="dialog-header-buttons">
-                    <button class="dark"><i class="fas fa-plus"></i></button>
-                </div>
             </div>
 
             <div class="dialog-container"></div>
