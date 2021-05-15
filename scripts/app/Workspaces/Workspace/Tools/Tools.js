@@ -18,10 +18,6 @@ class Tool {
             this.workspace.canvas.style.cursor = "none";
             
         this.workspace.content.appendChild(this.cursor);
-        
-        this.context = this.workspace.tools.canvas.getContext("2d");
-
-        this.context.save();
 
         for(let key in this.properties) {
             const property = document.createElement("div");

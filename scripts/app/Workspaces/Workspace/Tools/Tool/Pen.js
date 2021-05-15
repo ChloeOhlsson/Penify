@@ -4,21 +4,32 @@ class Pen extends Tool {
 
     hideCursor = true;
 
-    properties = { "preview": "preview", "size": "size", "blend": "blend" };
+    properties = { "preview": "preview", "size": "size", "mode": "blend" };
 
     size = 1;
-    blend = "source-over";
+    mode = "source-over";
 
     constructor(workspace) {
         super(workspace);
 
-        this.cursor.innerHTML = `<i class="${this.icon}"></i>`;
+        this.canvas = document.createElement("canvas");
+        this.context = this.canvas.getContext("2d");
+
+        this.cursor.appendChild(this.canvas);
+    };
+
+    change(key, value) {
+        super.change(key, value);
+
+        this.canvas.width = this.canvas.height = this.size + 4;
+        
+        this.context.strokeStyle = "#CACACA";
+        this.context.arc(this.size / 2 + 2, this.size / 2 + 2, this.size / 2, 0, 2 * Math.PI);
+        this.context.stroke();
     };
 
     select(element) {
         super.select(element);
-
-        this.context.restore();
     };
 
     mouseEnter(event, left, top) {
@@ -29,45 +40,54 @@ class Pen extends Tool {
         super.mouseDown(event, left, top);
 
         this.workspace.history.add();
+        this.workspace.layers.active.save();
         
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.path = new Path2D();
 
-        this.context.beginPath();
+        this.path.moveTo(left + .5, top);
+        this.path.lineTo(left + .5, top - .5);
 
-        this.context.moveTo(left + .5, top);
-        this.context.lineTo(left + .5, top - .5);
-
-        this.context.stroke();
+        this.render();
     };
 
     mouseMove(event, left, top, down) {
         super.mouseMove(event, left, top, down);
 
         if(down) {
-            this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+            this.path.lineTo(left + .5, top - .5);
 
-            this.context.lineTo(left + .5, top - .5);
-
-            this.context.stroke();
+            this.render();
         }
     };
 
     mouseUp(event, left, top) {
         super.mouseUp(event, left, top);
 
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.path.lineTo(left + .5, top - .5);
 
-        this.context.lineTo(left + .5, top - .5);
-        this.context.stroke();
-
-        this.workspace.layers.active?.context.drawImage(this.context.canvas, 0, 0);
-        this.workspace.layers.active?.render();
-
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.render();
     };
 
     mouseLeave(event, left, top) {
         super.mouseLeave(event, left, top);
+    };
+
+    render() {
+        this.workspace.layers.active.restore();
+
+        const context = this.workspace.layers.active.context;
+
+        context.save();
+                
+        context.lineWidth = this.size;
+        context.lineJoin =context.lineCap = "round";
+        context.globalCompositeOperation = this.mode;
+
+        context.stroke(this.path);
+
+        this.workspace.layers.active.render();
+
+        context.restore();
     };
 
     unselect() {

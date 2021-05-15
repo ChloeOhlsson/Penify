@@ -12,18 +12,20 @@ class Brush extends Tool {
     constructor(workspace) {
         super(workspace);
 
-        this.cursorCanvas = document.createElement("canvas");
-        this.cursor.appendChild(this.cursorCanvas);
+        this.canvas = document.createElement("canvas");
+        this.context = this.canvas.getContext("2d");
+
+        this.cursor.appendChild(this.canvas);
     };
 
     change(key, value) {
         super.change(key, value);
 
-        this.cursorCanvas.width = this.cursorCanvas.height = this.size + 4;
-        this.cursorContext = this.cursorCanvas.getContext("2d");
-        this.cursorContext.strokeStyle = "#CACACA";
-        this.cursorContext.arc(this.size / 2 + 2, this.size / 2 + 2, this.size / 2, 0, 2 * Math.PI);
-        this.cursorContext.stroke();
+        this.canvas.width = this.canvas.height = this.size + 4;
+        
+        this.context.strokeStyle = "#CACACA";
+        this.context.arc(this.size / 2 + 2, this.size / 2 + 2, this.size / 2, 0, 2 * Math.PI);
+        this.context.stroke();
     };
 
     select(element) {
