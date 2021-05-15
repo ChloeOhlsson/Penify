@@ -63,7 +63,8 @@ class Brush extends Tool {
     mouseUp(event, left, top) {
         super.mouseUp(event, left, top);
 
-        this.path.lineTo(left + .5, top - .5);
+        if(left != null && top != null)
+            this.path.lineTo(left + .5, top - .5);
 
         this.render();
     };

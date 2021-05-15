@@ -184,9 +184,7 @@ class Tools {
             if(this.active == undefined)
                 return;
 
-            const rectangle = this.workspace.content.getBoundingClientRect();
-            const left = Math.round((event.clientX - rectangle.left) * this.workspace.scale);
-            const top = Math.round((event.clientY - rectangle.top) * this.workspace.scale);
+            const { left, top } = this.getCursor(event);
             
             this.active.cursor.style.display = "block";
 
@@ -194,6 +192,25 @@ class Tools {
             this.active.cursor.style.top = top + "px";
 
             this.active.mouseEnter(event, left, top);
+        });
+
+        this.workspace.canvas.addEventListener("touchstart", (event) => {
+            event.preventDefault();
+
+            if(event.touches.length == 0)
+                return;
+
+            if(this.down == true)
+                return;
+                
+            this.down = true;
+
+            if(this.active == undefined)
+                return;
+
+            const { left, top } = this.getCursor(event.touches[0]);
+
+            this.active.mouseDown(event, left, top);
         });
 
         this.workspace.canvas.addEventListener("mousedown", (event) => {
@@ -205,25 +222,48 @@ class Tools {
             if(this.active == undefined)
                 return;
 
-            const rectangle = this.workspace.content.getBoundingClientRect();
-            const left = Math.round((event.clientX - rectangle.left) / this.workspace.scale);
-            const top = Math.round((event.clientY - rectangle.top) / this.workspace.scale);
+            const { left, top } = this.getCursor(event);
 
             this.active.mouseDown(event, left, top);
+        });
+
+        this.workspace.canvas.addEventListener("touchmove", (event) => {
+            event.preventDefault();
+
+            if(this.active == undefined)
+                return;
+
+            for(let index = 0; index < event.touches.length; index++) {
+                const { left, top } = this.getCursor(event.touches[index]);
+
+                this.active.cursor.style.left = left + "px";
+                this.active.cursor.style.top = top + "px";
+
+                this.active.mouseMove(event, left, top, this.down);
+            }
         });
 
         this.workspace.canvas.addEventListener("mousemove", (event) => {
             if(this.active == undefined)
                 return;
 
-            const rectangle = this.workspace.content.getBoundingClientRect();
-            const left = Math.round((event.clientX - rectangle.left) / this.workspace.scale);
-            const top = Math.round((event.clientY - rectangle.top) / this.workspace.scale);
+            const { left, top } = this.getCursor(event);
 
             this.active.cursor.style.left = left + "px";
             this.active.cursor.style.top = top + "px";
 
             this.active.mouseMove(event, left, top, this.down);
+        });
+
+        this.workspace.canvas.addEventListener("touchend", (event) => {
+            event.preventDefault();
+
+            this.down = false;
+
+            if(this.active == undefined)
+                return;
+
+            this.active.mouseUp(event, null, null);
         });
 
         this.workspace.canvas.addEventListener("mouseup", (event) => {
@@ -232,9 +272,7 @@ class Tools {
             if(this.active == undefined)
                 return;
 
-            const rectangle = this.workspace.content.getBoundingClientRect();
-            const left = Math.round((event.clientX - rectangle.left) / this.workspace.scale);
-            const top = Math.round((event.clientY - rectangle.top) / this.workspace.scale);
+            const { left, top } = this.getCursor(event);
 
             this.active.mouseUp(event, left, top);
         });
@@ -243,9 +281,7 @@ class Tools {
             if(this.active == undefined)
                 return;
 
-            const rectangle = this.workspace.content.getBoundingClientRect();
-            const left = Math.round((event.clientX - rectangle.left) / this.workspace.scale);
-            const top = Math.round((event.clientY - rectangle.top) / this.workspace.scale);
+            const { left, top } = this.getCursor(event);
             
             this.active.cursor.style.display = "";
 
@@ -282,5 +318,13 @@ class Tools {
 
         this.workspace.tool.style.display = "block";
         this.workspace.canvas.style.marginLeft = "120px";
+    };
+
+    getCursor(event) {
+        const rectangle = this.workspace.content.getBoundingClientRect();
+        const left = Math.round((event.clientX - rectangle.left) / this.workspace.scale);
+        const top = Math.round((event.clientY - rectangle.top) / this.workspace.scale);
+    
+        return { left, top };
     };
 };
