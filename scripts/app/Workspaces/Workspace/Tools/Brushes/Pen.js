@@ -1,12 +1,12 @@
-class Brush extends Tool {
-    name = "Brush";
-    icon = "fas fa-paint-brush";
+class Pen extends Tool {
+    name = "Pen";
+    icon = "fas fa-pencil-alt";
 
     hideCursor = true;
 
     properties = { "preview": "preview", "size": "size", "mode": "blend" };
 
-    size = 20;
+    size = 1;
     mode = "source-over";
 
     constructor(workspace) {
@@ -21,10 +21,10 @@ class Brush extends Tool {
     change(key, value) {
         super.change(key, value);
 
-        this.canvas.width = this.canvas.height = this.size + 4;
+        this.canvas.width = this.canvas.height = this.size;
         
         this.context.strokeStyle = "#CACACA";
-        this.context.arc(this.size / 2 + 2, this.size / 2 + 2, this.size / 2, 0, 2 * Math.PI);
+        this.context.rect(0, 0, this.size, this.size);
         this.context.stroke();
     };
 
@@ -42,10 +42,9 @@ class Brush extends Tool {
         this.workspace.history.add();
         this.workspace.layers.active.save();
         
-        this.path = new Path2D();
-
-        this.path.moveTo(left, top);
-        this.path.lineTo(left, top);
+        this.path = [
+            { left, top }
+        ];
 
         this.render(context);
     };
@@ -54,7 +53,7 @@ class Brush extends Tool {
         super.mouseMove(context, event, left, top, down);
 
         if(down) {
-            this.path.lineTo(left, top);
+            this.path.push({ left, top });
 
             this.render(context);
         }
@@ -64,7 +63,7 @@ class Brush extends Tool {
         super.mouseUp(context, event, left, top);
 
         if(left != null && top != null)
-            this.path.lineTo(left, top);
+            this.path.push({ left, top });
 
         this.render(context);
     };
@@ -77,12 +76,11 @@ class Brush extends Tool {
         this.workspace.layers.active.restore();
 
         context.save();
-                
-        context.lineWidth = this.size;
-        context.lineJoin = context.lineCap = "round";
-        context.globalCompositeOperation = this.mode;
 
-        context.stroke(this.path);
+        context.lineWidth = this.size;
+
+        for(let index = 0; index < this.path.length - 1; index++)
+            context.bresenhamLine(this.path[index].left, this.path[index].top, this.path[index + 1].left, this.path[index + 1].top);
 
         this.workspace.layers.active.render();
 

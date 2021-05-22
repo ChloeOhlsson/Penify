@@ -7,8 +7,11 @@
         
         "Workspaces/Workspace/Tools/Tools.js",
 
+        "Workspaces/Workspace/Tools/Context/Bresenham.js",
+
         "Workspaces/Workspace/Tools/Interface/Tool.js",
 
+        "Workspaces/Workspace/Tools/Brushes/Pen.js",
         "Workspaces/Workspace/Tools/Brushes/Brush.js",
         "Workspaces/Workspace/Tools/Brushes/Eraser.js",
         

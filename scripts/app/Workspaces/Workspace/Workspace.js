@@ -78,6 +78,7 @@ class Workspace {
 
         this.tools = new Tools(this);
         
+        this.tools.add(new Pen(this));
         this.tools.add(new Brush(this));
         this.tools.add(new Eraser(this));
 

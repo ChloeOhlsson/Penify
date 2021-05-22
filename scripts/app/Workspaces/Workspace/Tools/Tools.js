@@ -10,6 +10,7 @@ class Tools {
         this.canvas = document.createElement("canvas");
         this.canvas.width = this.workspace.width;
         this.canvas.height = this.workspace.height;
+        this.context = this.canvas.getContext("2d");
         this.workspace.content.appendChild(this.canvas);
 
         this.workspace.tool.querySelector(".tool-hide").addEventListener("click", (event) => {
@@ -32,7 +33,7 @@ class Tools {
             this.active.cursor.style.left = left + "px";
             this.active.cursor.style.top = top + "px";
 
-            this.active.mouseEnter(event, left, top);
+            this.active.mouseEnter(this.context, event, left, top);
         });
 
         this.workspace.canvas.addEventListener("touchstart", (event) => {
@@ -51,7 +52,7 @@ class Tools {
 
             const { left, top } = this.getCursor(event.touches[0]);
 
-            this.active.mouseDown(event, left, top);
+            this.active.mouseDown(this.context, event, left, top);
         });
 
         this.workspace.canvas.addEventListener("mousedown", (event) => {
@@ -65,7 +66,7 @@ class Tools {
 
             const { left, top } = this.getCursor(event);
 
-            this.active.mouseDown(event, left, top);
+            this.active.mouseDown(this.context, event, left, top);
         });
 
         this.workspace.canvas.addEventListener("touchmove", (event) => {
@@ -93,7 +94,7 @@ class Tools {
             this.active.cursor.style.left = left + "px";
             this.active.cursor.style.top = top + "px";
 
-            this.active.mouseMove(event, left, top, this.down);
+            this.active.mouseMove(this.context, event, left, top, this.down);
         });
 
         this.workspace.canvas.addEventListener("touchend", (event) => {
@@ -115,7 +116,7 @@ class Tools {
 
             const { left, top } = this.getCursor(event);
 
-            this.active.mouseUp(event, left, top);
+            this.active.mouseUp(this.context, event, left, top);
         });
 
         this.workspace.canvas.addEventListener("mouseleave", (event) => {
@@ -126,7 +127,7 @@ class Tools {
             
             this.active.cursor.style.display = "";
 
-            this.active.mouseLeave(event, left, top);
+            this.active.mouseLeave(this.context, event, left, top);
         });
     };
 
