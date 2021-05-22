@@ -88,6 +88,7 @@ class Pen extends Tool {
         context.save();
 
         context.lineWidth = this.size;
+        context.globalCompositeOperation = this.mode;
 
         for(let index = 0; index < this.path.length - 1; index++)
             context.bresenhamLine(this.path[index].left, this.path[index].top, this.path[index + 1].left, this.path[index + 1].top);
