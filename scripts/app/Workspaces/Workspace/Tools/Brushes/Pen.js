@@ -20,12 +20,21 @@ class Pen extends Tool {
 
     change(key, value) {
         super.change(key, value);
+    
+        if(this.size == 1) {
+            this.canvas.width = this.canvas.height = 2;
 
-        this.canvas.width = this.canvas.height = this.size + 2;
+            this.context.rect(1.5, 1.5, 1, 1);
+        }
+        else {
+            this.canvas.width = this.canvas.height = this.size + 2;
+
+            this.context.rect(0.5, 0.5, this.size + 1, this.size + 1);
+        }
         
         this.context.lineWidth = 1;
         this.context.strokeStyle = "#CACACA";
-        this.context.rect(0.5, 0.5, this.size + 1, this.size + 1);
+        
         this.context.stroke();
     };
 
