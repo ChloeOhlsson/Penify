@@ -164,8 +164,8 @@ class Tools {
 
     getCursor(event) {
         const rectangle = this.workspace.content.getBoundingClientRect();
-        const left = Math.round((event.clientX - rectangle.left) / this.workspace.scale);
-        const top = Math.round((event.clientY - rectangle.top) / this.workspace.scale);
+        const left = Math.floor((event.clientX - rectangle.left) / this.workspace.scale);
+        const top = Math.floor((event.clientY - rectangle.top) / this.workspace.scale);
     
         return { left, top };
     };
