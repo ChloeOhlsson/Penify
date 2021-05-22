@@ -14,6 +14,7 @@ class Eraser extends Tool {
 
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
+
         this.cursor.appendChild(this.canvas);
     };
 
@@ -31,54 +32,52 @@ class Eraser extends Tool {
         super.select(element);
     };
 
-    mouseEnter(event, left, top) {
-        super.mouseEnter(event, left, top);
+    mouseEnter(context, event, left, top) {
+        super.mouseEnter(context, event, left, top);
     };
 
-    mouseDown(event, left, top) {
-        super.mouseDown(event, left, top);
+    mouseDown(context, event, left, top) {
+        super.mouseDown(context, event, left, top);
 
         this.workspace.history.add();
         this.workspace.layers.active.save();
         
         this.path = new Path2D();
 
-        this.path.moveTo(left + .5, top);
-        this.path.lineTo(left + .5, top - .5);
+        this.path.moveTo(left, top);
+        this.path.lineTo(left, top);
 
-        this.render();
+        this.render(context);
     };
 
-    mouseMove(event, left, top, down) {
-        super.mouseMove(event, left, top, down);
+    mouseMove(context, event, left, top, down) {
+        super.mouseMove(context, event, left, top, down);
 
         if(down) {
-            this.path.lineTo(left + .5, top - .5);
+            this.path.lineTo(left, top);
 
-            this.render();
+            this.render(context);
         }
     };
 
-    mouseUp(event, left, top) {
-        super.mouseUp(event, left, top);
+    mouseUp(context, event, left, top) {
+        super.mouseUp(context, event, left, top);
 
         if(left != null && top != null)
-            this.path.lineTo(left + .5, top - .5);
+            this.path.lineTo(left, top);
 
-        this.render();
+        this.render(context);
     };
 
-    mouseLeave(event, left, top) {
-        super.mouseLeave(event, left, top);
+    mouseLeave(context, event, left, top) {
+        super.mouseLeave(context, event, left, top);
     };
 
-    render() {
+    render(context) {
         this.workspace.layers.active.restore();
 
-        const context = this.workspace.layers.active.context;
-
         context.save();
-            
+                
         context.lineWidth = this.size;
         context.lineJoin = context.lineCap = "round";
         context.globalCompositeOperation = this.mode;
