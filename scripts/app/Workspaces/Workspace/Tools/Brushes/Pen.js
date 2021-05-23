@@ -51,10 +51,15 @@ class Pen extends Tool {
 
         this.workspace.history.add();
         this.workspace.layers.active.save();
+
+        context.save();
         
-        this.path = [
-            { left, top }
-        ];
+        context.lineWidth = this.size;
+        context.globalCompositeOperation = this.mode;
+
+        this.path = new BresenhamPath2D(context, "rect", this.size);
+
+        this.path.moveTo(left, top);
 
         this.render(context);
     };
@@ -63,7 +68,7 @@ class Pen extends Tool {
         super.mouseMove(context, event, left, top, down);
 
         if(down) {
-            this.path.push({ left, top });
+            this.path.lineTo(left, top);
 
             this.render(context);
         }
@@ -73,9 +78,11 @@ class Pen extends Tool {
         super.mouseUp(context, event, left, top);
 
         if(left != null && top != null)
-            this.path.push({ left, top });
+            this.path.lineTo(left, top);
 
         this.render(context);
+
+        context.restore();
     };
 
     mouseLeave(context, event, left, top) {
@@ -83,19 +90,7 @@ class Pen extends Tool {
     };
 
     render(context) {
-        this.workspace.layers.active.restore();
-
-        context.save();
-
-        context.lineWidth = this.size;
-        context.globalCompositeOperation = this.mode;
-
-        for(let index = 0; index < this.path.length - 1; index++)
-            context.bresenhamLine(this.path[index].left, this.path[index].top, this.path[index + 1].left, this.path[index + 1].top);
-
         this.workspace.layers.active.render();
-
-        context.restore();
     };
 
     unselect() {

@@ -1,4 +1,4 @@
-CanvasRenderingContext2D.prototype.bresenham = function(x1,y1,x2,y2, point) {
+function bresenham(x1,y1,x2,y2, point) {
 	x1 |= 0; y1 |= 0; x2 |= 0; y2 |= 0; //no float values!
 
 	let dx = x2 - x1, dy = y2 - y1; //find delta x,y
@@ -29,4 +29,43 @@ CanvasRenderingContext2D.prototype.bresenhamLine = function(x1,y1,x2,y2) {
     this.bresenham(x1,y1,x2,y2, (left, top) => {
         this.fillRect(left - lineRadius, top - lineRadius, this.lineWidth, this.lineWidth);
     });
+};
+
+class BresenhamPath2D {
+	path = new Path2D();
+
+	type = "rect";
+
+	left = null;
+	top = null;
+
+	size = 1;
+
+	constructor(context, type, size) {
+		this.moveTo = this[type + "MoveTo"];
+		this.lineTo = this[type + "LineTo"];
+
+		this.context = context;
+
+		this.size = size;
+	};
+
+	rectMoveTo(left, top) {
+		this.left = left;
+		this.top = top;
+
+		this.rectLineTo(left, top);
+	};
+
+	rectLineTo(left, top) {
+		const lineWidth = this.context.lineWidth;
+		const lineWidthRadius = Math.floor(lineWidth / 2);
+
+		bresenham(this.left, this.top, left, top, (left, top) => {
+			this.context.fillRect(left - lineWidthRadius, top - lineWidthRadius, lineWidth, lineWidth);
+		});
+
+		this.left = left;
+		this.top = top;
+	};
 };
