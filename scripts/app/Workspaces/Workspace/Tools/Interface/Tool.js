@@ -96,7 +96,7 @@ class Tool {
                     const canvas = modeElement.querySelector("canvas");
                     const context = canvas.getContext("2d");
         
-                    context.fillStyle = "#1F2429";
+                    context.fillStyle = "#24292E";
                     context.fillRect(0, 0, canvas.width, canvas.height);
         
                     context.globalCompositeOperation = modes[index];

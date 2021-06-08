@@ -43,6 +43,8 @@ class Workspace {
                     
                     <div class="dialog-container"></div>
                 </div>
+
+                <div class="dialogs"></div>
             </section>
 
             <section class="right"></section>
@@ -69,6 +71,8 @@ class Workspace {
         this.main = this.element.querySelector(".main");
 
         this.tool = this.main.querySelector(".tool");
+        
+        this.dialogs = this.main.querySelector(".dialogs");
 
         this.canvas = this.element.querySelector(".canvas");
         this.container = this.canvas.querySelector(".canvas-container");
@@ -81,6 +85,8 @@ class Workspace {
         this.tools.add(new Pen(this));
         this.tools.add(new Brush(this));
         this.tools.add(new Eraser(this));
+
+        this.colors = new Colors(this);
 
         this.right = this.element.querySelector(".right");
 

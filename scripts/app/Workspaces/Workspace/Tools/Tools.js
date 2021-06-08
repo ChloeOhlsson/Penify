@@ -15,7 +15,7 @@ class Tools {
 
         this.workspace.tool.querySelector(".tool-hide").addEventListener("click", (event) => {
             this.workspace.tool.style.display = "none";
-            this.workspace.canvas.style.marginLeft = "0";
+            this.workspace.main.classList.remove("tools-active");
         });
 
         this.container = this.workspace.tool.querySelector(".dialog-container");
@@ -159,7 +159,7 @@ class Tools {
         this.active.change(null, null);
 
         this.workspace.tool.style.display = "block";
-        this.workspace.canvas.style.marginLeft = "120px";
+        this.workspace.main.classList.add("tools-active");
     };
 
     getCursor(event) {

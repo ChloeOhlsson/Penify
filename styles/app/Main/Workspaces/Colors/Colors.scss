@@ -1,0 +1,19 @@
+.colors {
+    display: none;
+    
+    position: absolute;
+   
+    top: unset;
+
+    bottom: 6px;
+    left: 6px;
+
+    width: 400px;
+    height: 280px;
+
+    border: 1px solid rgba(0,0,0,.5);
+
+    &.active {
+        display: block;
+    }
+}
